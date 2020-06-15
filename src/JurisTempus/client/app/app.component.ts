@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './services/DataService';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ITimeBillViewModel } from '../viewModels/ITimeBillViewModel';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'theApp',
@@ -30,11 +32,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.theForm = this._formBldr.group({
-      caseId: [""],
+      caseId: ["", Validators.required],
       workDate: [new Date()],
-      timeSegments: [0],
-      rate: [120.00],
-      workDescription: [""]
+      timeSegments: [0, [Validators.required, Validators.max(72)]],
+      rate: [120.00, [Validators.required, Validators.min(85), Validators.max(800)]],
+      workDescription: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(4000)]]
     });
   }
 
@@ -42,7 +44,7 @@ export class AppComponent implements OnInit {
 
 
   save() {
-    let timeBill = this.theForm.value;
+    let timeBill: ITimeBillViewModel = this.theForm.value;
     timeBill.employeeId = this.employeeId;
     this._dataService.saveTimesheet(timeBill);
     this.message = "Saved...";

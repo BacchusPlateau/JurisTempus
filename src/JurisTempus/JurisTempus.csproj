@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="client\viewModels\ITimeBillViewModel.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include=".editorconfig" />
     <Content Include=".gitignore" />
     <Content Include="browserslist" />
@@ -35,6 +39,11 @@
 
   <ItemGroup>
     <Folder Include="client\node_modules\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <TypeScriptCompile Include="client\viewModels\ITimeBillViewModel.ts" />
   </ItemGroup>
 
 </Project>
